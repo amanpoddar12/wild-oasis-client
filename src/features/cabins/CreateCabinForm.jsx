@@ -141,7 +141,7 @@ function CreateCabinForm() {
         <FileInput
           id="image"
           accept="image/*"
-          {...register("cabinPhoto", {
+          {...register("image", {
             required: "This feild is required",
           })}
         />
