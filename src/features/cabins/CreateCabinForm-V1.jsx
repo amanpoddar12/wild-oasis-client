@@ -7,20 +7,16 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { CreateCabin } from "../../services/apiCabins";
+import { CreateEditCabin } from "../../services/apiCabins";
 import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
-  const { id: editId, ...editValues } = cabinToEdit;
-  const isEditedSession = Boolean(editId);
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditedSession ? editValues : {},
-  });
+function CreateCabinForm() {
   const queryClient = useQueryClient();
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
   console.log(errors);
   const { mutate, isLoading: isCreating } = useMutation({
-    mutationFn: CreateCabin,
+    mutationFn: CreateEditCabin,
     onSuccess: () => {
       toast.success("New cabin successfully created");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
@@ -110,7 +106,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           id="image"
           accept="image/*"
           {...register("image", {
-            required: isEditedSession ? false : "This feild is required",
+            required: "This feild is required",
           })}
         />
       </FormRow>
@@ -119,9 +115,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
         <Button variations="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>
-          {isEditedSession ? "Edit cabin" : "Create New Cabin"}
-        </Button>
+        <Button disabled={isCreating}>Add cabin</Button>
       </FormRow>
     </Form>
   );
