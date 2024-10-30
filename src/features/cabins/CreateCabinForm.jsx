@@ -32,7 +32,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
           onSuccess: () => {
             console.log(data);
             reset();
-            onCloseModel?.();
+            onCloseModel();
           },
         }
       );
@@ -43,7 +43,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
           onSuccess: () => {
             console.log(data);
             reset();
-            onCloseModel?.();
+            onCloseModel();
           },
         }
       );
@@ -131,10 +131,9 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModel }) {
           })}
         />
       </FormRow>
-
       <FormRow>
         <Button
-          variations="secondary"
+          variation="secondary"
           type="reset"
           onClick={() => onCloseModel?.()}
         >

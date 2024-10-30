@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -46,6 +46,9 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }) {
+  const { isDeleting, deleteCabins } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
+
   const {
     name,
     maxCapacity,
@@ -54,8 +57,6 @@ function CabinRow({ cabin }) {
     image,
     id: cabinId,
   } = cabin;
-  const { isDeleting, deleteCabins } = useDeleteCabin();
-  const { isCreating, createCabin } = useCreateCabin();
 
   function handleDuplicateCabin() {
     createCabin({
@@ -83,6 +84,7 @@ function CabinRow({ cabin }) {
           <button disabled={isCreating} onClick={() => handleDuplicateCabin()}>
             <HiSquare2Stack />
           </button>
+
           <Modal>
             <Modal.Open opens={"edit"}>
               <button>
@@ -92,9 +94,18 @@ function CabinRow({ cabin }) {
             <Modal.Window name="edit">
               <CreateCabinForm cabinToEdit={cabin} />
             </Modal.Window>
-            <button onClick={() => deleteCabins(cabinId)} disabled={isDeleting}>
-              <HiTrash />
-            </button>
+            <Modal.Open opens="delete">
+              <button disabled={isDeleting}>
+                <HiTrash />
+              </button>
+            </Modal.Open>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName={"cabins"}
+                onConfirm={() => deleteCabins(cabinId)}
+                disabled={isDeleting}
+              />
+            </Modal.Window>
           </Modal>
         </div>
       </TableRow>
