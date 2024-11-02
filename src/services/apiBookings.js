@@ -2,11 +2,11 @@ import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getBookings() {
-  const { data, error } = await supabase.from("bookings").select(`
-      *,
-      cabins!bookings_cabinId_fkey(*),  -- Explicitly specifying the cabin relationship
-      guests(*)
-    `);
+  const { data, error } = await supabase
+    .from("bookings")
+    .select(
+      "id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice, cabins!bookings_id_fkey1(name), guests(fullName,email)"
+    );
 
   if (error) {
     console.error(error);
