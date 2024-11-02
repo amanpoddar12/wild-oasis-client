@@ -4,12 +4,14 @@ import useCabins from "./useCabins";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty";
 
 function CabinTable() {
   const { isLoading, cabins } = useCabins();
   const [searchParams] = useSearchParams();
   // console.log(searchParams.get());
   if (isLoading) return <Spinner />;
+  if (!cabins.length) return <Empty resourceName={"cabins"} />;
   const filterValue = searchParams.get("discount") || "all";
   // console.log(filterValue);
   let filteredCabins;
@@ -50,3 +52,5 @@ function CabinTable() {
 }
 
 export default CabinTable;
+
+// insert or update on table "bookings" violates foreign key constraint "bookings_id_fkey"
