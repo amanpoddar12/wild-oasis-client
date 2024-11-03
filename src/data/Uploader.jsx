@@ -102,7 +102,6 @@ async function createBookings() {
 
 function Uploader() {
   const [isLoading, setIsLoading] = useState(false);
-
   async function uploadAll() {
     setIsLoading(true);
     // Bookings need to be deleted FIRST
