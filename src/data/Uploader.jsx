@@ -39,6 +39,7 @@ async function createCabins() {
   const { error } = await supabase.from("cabins").insert(cabins);
   if (error) console.log(error.message);
 }
+
 async function createBookings() {
   // Bookings need a guestId and a cabinId. We can't tell Supabase IDs for each object, it will calculate them on its own. So it might be different for different people, especially after multiple uploads. Therefore, we need to first get all guestIds and cabinIds, and then replace the original IDs in the booking data with the actual ones from the DB
   const { data: guestsIds } = await supabase
@@ -52,7 +53,7 @@ async function createBookings() {
     .select("id")
     .order("id");
   const allCabinIds = cabinsIds.map((cabin) => cabin.id);
-  console.log(allCabinIds);
+
   const finalBookings = bookings.map((booking) => {
     // Here relying on the order of cabins, as they don't have and ID yet
 
@@ -85,6 +86,7 @@ async function createBookings() {
 
     return {
       ...booking,
+      // id: Math.floor(Math.random(1) * 1000),
       numNights,
       cabinPrice,
       extrasPrice,
