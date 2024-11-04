@@ -5,13 +5,15 @@ export async function getBookings() {
   const { data, error } = await supabase
     .from("bookings")
     .select(
-      "id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice, cabins!bookings_id_fkey(name), guests(fullName,email)"
+      "id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice, cabins!bookings_id_fkey(name)(name), guests(fullName,email)"
     );
 
+  console.log(data);
   if (error) {
     console.error(error);
     throw new Error("Bookings could not be loaded");
   }
+
   return data;
 }
 
