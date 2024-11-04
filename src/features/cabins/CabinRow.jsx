@@ -123,3 +123,5 @@ function CabinRow({ cabin }) {
 }
 
 export default CabinRow;
+
+///update cabins
