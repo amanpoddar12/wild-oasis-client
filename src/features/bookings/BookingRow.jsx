@@ -45,7 +45,7 @@ function BookingRow({
     totalPrice,
     status,
     guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    // cabins: { name: cabinName },
   },
 }) {
   const statusToTagName = {
@@ -53,11 +53,11 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
-
+  let i = 1;
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
-
+      <Cabin>{`00${i}`}</Cabin>
+      {/* {i + 1} */}
       <Stacked>
         <span>{guestName}</span>
         <span>{email}</span>

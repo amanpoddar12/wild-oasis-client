@@ -1,19 +1,28 @@
 import { getToday } from "../utils/helpers";
+import { getCabins } from "./apiCabins";
 import supabase from "./supabase";
 
 export async function getBookings() {
   const { data, error } = await supabase
     .from("bookings")
     .select(
-      "id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice, cabins!bookings_id_fkey(name)(name), guests(fullName,email)"
+      "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, guests(fullName,email)"
     );
+  let cabins = getCabins();
+  console.log(cabins);
+  // let query = supabase
+  //   .from("bookings")
+  //   .select(
+  //     "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)",
+  //     { count: "exact" }
+  //   );
 
   console.log(data);
   if (error) {
     console.error(error);
     throw new Error("Bookings could not be loaded");
   }
-
+  getBooking(1418);
   return data;
 }
 
@@ -27,6 +36,7 @@ export async function getBooking(id) {
     console.error(error);
     throw new Error("Booking not found");
   }
+  console.log(data);
   return data;
 }
 
