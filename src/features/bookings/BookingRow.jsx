@@ -53,10 +53,10 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
-  let i = 1;
+  // let i = 1;
   return (
     <Table.Row>
-      <Cabin>{`00${i}`}</Cabin>
+      <Cabin>{`${Math.floor(Math.random(1) * 100)}`}</Cabin>
       {/* {i + 1} */}
       <Stacked>
         <span>{guestName}</span>
