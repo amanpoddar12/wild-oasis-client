@@ -8,7 +8,8 @@ export async function getBookings() {
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, guests(fullName,email)"
     )
-    .eq("status", "unconfirmed");
+    .eq("status", "unconfirmed")
+    .gte("totalPrice", 5000);
   // let cabins = getCabins();
   // console.log(cabins);
   // let query = supabase
