@@ -1,31 +1,25 @@
 import { getToday } from "../utils/helpers";
-import { getCabins } from "./apiCabins";
+
 import supabase from "./supabase";
 // function to get booking data
 
-export async function getBookings() {
-  const { data, error } = await supabase
+export async function getBookings({ filter, sortBy }) {
+  let query = supabase
     .from("bookings")
     .select(
       "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, guests(fullName,email)"
-    )
-    .eq("status", "unconfirmed")
-    .gte("totalPrice", 5000);
-  // let cabins = getCabins();
-  // console.log(cabins);
-  // let query = supabase
-  //   .from("bookings")
-  //   .select(
-  //     "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)",
-  //     { count: "exact" }
-  //   );
+    );
+
+  if (filter !== null) query = query.eq(filter.field, filter.value);
+
+  const { data, error } = await query;
 
   console.log(data);
   if (error) {
     console.error(error);
     throw new Error("Bookings could not be loaded");
   }
-  getBooking(1418);
+  // getBooking(1418);
   return data;
 }
 
