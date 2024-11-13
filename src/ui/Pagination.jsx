@@ -59,6 +59,8 @@ const PaginationButton = styled.button`
 // import React from 'react'
 
 export default function Pagination({ count }) {
+  function nextPage() {}
+  function previousPage() {}
   return (
     <StyledPagination>
       <P>
@@ -66,10 +68,10 @@ export default function Pagination({ count }) {
         results
       </P>
       <Buttons>
-        <PaginationButton>
+        <PaginationButton onClick={previousPage}>
           <HiChevronLeft /> <span>Previous</span>
         </PaginationButton>
-        <PaginationButton>
+        <PaginationButton onClick={nextPage}>
           {" "}
           <span>Next</span>
           <HiChevronRight />
