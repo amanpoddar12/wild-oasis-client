@@ -72,7 +72,6 @@ export default function Pagination({ count }) {
           <HiChevronLeft /> <span>Previous</span>
         </PaginationButton>
         <PaginationButton onClick={nextPage}>
-          {" "}
           <span>Next</span>
           <HiChevronRight />
         </PaginationButton>
