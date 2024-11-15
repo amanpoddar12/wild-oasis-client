@@ -46,6 +46,7 @@ function BookingRow({
     status,
     guests: { fullName: guestName, email },
     // cabins: { name: cabinName },
+    key,
   },
 }) {
   const statusToTagName = {
@@ -56,8 +57,9 @@ function BookingRow({
   // let i = 1;
   return (
     <Table.Row>
-      <Cabin>{`${Math.floor(Math.random(1) * 100)}`}</Cabin>
+      {/* <Cabin>{`${Math.floor(Math.random(1) * 100)}`}</Cabin> */}
       {/* {i + 1} */}
+      <Cabin>{key}</Cabin>
       <Stacked>
         <span>{guestName}</span>
         <span>{email}</span>
