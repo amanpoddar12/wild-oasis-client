@@ -45,8 +45,8 @@ function BookingRow({
     totalPrice,
     status,
     guests: { fullName: guestName, email },
-    // cabins: { name: cabinName },
-    key,
+    cabins: { name: cabinName },
+    // key,
   },
 }) {
   const statusToTagName = {
@@ -59,7 +59,7 @@ function BookingRow({
     <Table.Row>
       {/* <Cabin>{`${Math.floor(Math.random(1) * 100)}`}</Cabin> */}
       {/* {i + 1} */}
-      <Cabin>{key}</Cabin>
+      <Cabin>{cabinName}</Cabin>
       <Stacked>
         <span>{guestName}</span>
         <span>{email}</span>
