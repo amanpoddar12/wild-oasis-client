@@ -8,13 +8,15 @@ function useBookings() {
     !filterValue || filterValue === "all"
       ? null
       : { field: "status", value: filterValue };
-  //SORT
+
   const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
   const [field, direction] = sortByRaw.split("-");
   const sortBy = { field, direction };
 
   const {
     data: { data: bookings, count },
+    // data: bookings,
+    // count,
     isLoading,
     error,
   } = useQuery({

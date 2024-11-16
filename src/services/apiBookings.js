@@ -1,5 +1,4 @@
 import { getToday } from "../utils/helpers";
-
 import supabase from "./supabase";
 // function to get booking data
 
