@@ -71,7 +71,7 @@ function CheckinBooking() {
             }}
             id={"breakfast"}
           >
-            Want to add breakfast for $ {optionalBreakfastPrice}?
+            Want to add breakfast for {formatCurrency(optionalBreakfastPrice)}?
           </CheckBox>
         </Box>
       )}
