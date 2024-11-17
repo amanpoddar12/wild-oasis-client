@@ -33,7 +33,7 @@ function CheckinBooking() {
   useEffect(() => {
     setConfirmPaid(booking?.isPaid ?? false);
   }, [booking?.isPaid]);
-  if (isLoading) return <Spinner />;
+  if (isLoading || isLoadingSettings) return <Spinner />;
   // const booking = {};
 
   const {
@@ -86,8 +86,8 @@ function CheckinBooking() {
           {!addBreakFast
             ? formatCurrency(totalPrice)
             : `${formatCurrency(totalPrice + optionalBreakfastPrice)}
-          (${formatCurrency(totalPrice)} + $
-          {formatCurrency(optionalBreakfastPrice)})`}
+          (${formatCurrency(totalPrice)} + 
+          ${formatCurrency(optionalBreakfastPrice)})`}
         </CheckBox>
       </Box>
       <ButtonGroup>
