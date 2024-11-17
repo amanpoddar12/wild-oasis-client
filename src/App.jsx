@@ -8,13 +8,13 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
+import Checkin from "./pages/Checkin";
 import Account from "./pages/Account";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-import Checkin from "./pages/checkIn";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
