@@ -83,7 +83,11 @@ function CheckinBooking() {
           id="confirm"
         >
           I confirm that {guests.fullName} has paid the total amount of{" "}
-          {formatCurrency(totalPrice)}
+          {!addBreakFast
+            ? formatCurrency(totalPrice)
+            : `${formatCurrency(totalPrice + optionalBreakfastPrice)}
+          (${formatCurrency(totalPrice)} + $
+          {formatCurrency(optionalBreakfastPrice)})`}
         </CheckBox>
       </Box>
       <ButtonGroup>
