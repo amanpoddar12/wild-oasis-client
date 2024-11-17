@@ -66,6 +66,7 @@ function BookingDetail() {
             Check Out
           </Button>
         )}
+        <Button variation="danger">Delete</Button>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
