@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { HiArrowUpOnSquare } from "react-icons/hi2";
 import { useCheckout } from "../check-in-out/useCheckout";
 import { useDeleteBooking } from "./useDeleteBooking";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 // import { getBooking } from "../../services/apiBookings";
 
 const HeadingGroup = styled.div`
@@ -40,9 +42,6 @@ function BookingDetail() {
     "checked-out": "silver",
   };
 
-  function handleDelete() {
-    deleteBooking(bookingId);
-  }
   return (
     <>
       <Row type="horizontal">
@@ -56,9 +55,6 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        <Button variation="danger" onClick={handleDelete} disabled={isDeleting}>
-          Delete
-        </Button>
         {status === "unconfirmed" && (
           <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
             Check in
@@ -74,7 +70,20 @@ function BookingDetail() {
             Check Out
           </Button>
         )}
-
+        <Modal>
+          <Modal.Open opens="delete">
+            <Button variation="danger">Delete booking</Button>
+          </Modal.Open>
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              resourceName={"boooking"}
+              onConfirm={() =>
+                deleteBooking(bookingId, { onSettled: () => navigate(-1) })
+              }
+              disabled={isDeleting}
+            />
+          </Modal.Window>
+        </Modal>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
