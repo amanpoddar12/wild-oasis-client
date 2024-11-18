@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import LoginForm from "../features/authentication/LoginForm";
 const LoginLayout = styled.main`
   min-height: 100vh;
   display: grid;
@@ -11,7 +11,11 @@ const LoginLayout = styled.main`
 `;
 
 function Login() {
-  return <LoginLayout>Login</LoginLayout>;
+  return (
+    <LoginLayout>
+      <LoginForm />
+    </LoginLayout>
+  );
 }
 
 export default Login;
