@@ -15,7 +15,7 @@ export const useLogin = () => {
       // and we need ONLY data.user here, not full data, as Jonas suggested
       queryClient.setQueryData(["user"], data.user);
       toast.success("Login successful");
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     },
 
     onError: (error) => toast.error(`${error.message}: ${error.cause.message}`),
