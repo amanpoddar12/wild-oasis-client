@@ -14,9 +14,9 @@ export function useSignup() {
         "Account successfully created! Please verify the new account from the users email address."
       );
     },
-    onError: () => {
-      toast.error("user already register");
-    },
+    // onError: () => {
+    //   toast.error("user already register");
+    // },
   });
   return { signup, isLoading };
 }
