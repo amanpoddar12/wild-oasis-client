@@ -22,7 +22,7 @@ export default function DashboardLayout() {
   } = useRecentStays();
   const { cabins, isLoading: isLoading3 } = useCabins();
   if (isLoading1 || isLoading2 || isLoading3) return <Spinner />;
-  console.log(bookings);
+  // console.log(bookings);
   return (
     <StyledDashboardLayout>
       <Stats
