@@ -29,7 +29,7 @@ function BookingDetail() {
   const { isDeleting, deleteBooking } = useDeleteBooking();
   const { checkout, isCheckingOut } = useCheckout();
   const navigate = useNavigate();
-  const { isLoading, booking, error } = useBooking();
+  const { isLoading, booking } = useBooking();
   console.log(booking);
   // const status = "checked-in";
   const moveBack = useMoveBack();
