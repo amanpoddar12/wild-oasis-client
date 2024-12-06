@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import MainNav from "./MainNav";
 import Logo from "./Logo";
-import Uploader from "../data/Uploader";
+// import Uploader from "../data/Uploader";
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
