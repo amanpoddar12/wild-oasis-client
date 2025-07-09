@@ -7,12 +7,12 @@ export function useSignup() {
     onSuccess: (user) => {
       console.log(user);
       toast.success(
-        "Account successfully created! Please verify the new account from the users email address."
+        "Account successfully created! You can now log in with your credentials."
       );
     },
-    // onError: () => {
-    //   toast.error("user already register");
-    // },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create account");
+    },
   });
   return { signup, isLoading };
 }

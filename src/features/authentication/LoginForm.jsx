@@ -6,7 +6,7 @@ import FormRowVertical from "../../ui/FormRowVertical";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-function LoginForm() {
+function LoginForm({ onCloseModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading } = useLogin();
@@ -17,6 +17,12 @@ function LoginForm() {
     login(
       { email, password },
       {
+        onSuccess: () => {
+          // Close modal if it exists
+          if (typeof onCloseModal === 'function') {
+            setTimeout(() => onCloseModal(), 1000);
+          }
+        },
         onSettled: () => {
           setEmail("");
           setPassword("");
@@ -26,7 +32,7 @@ function LoginForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} type={onCloseModal ? "modal" : "regular"}>
       <FormRowVertical label="Email address">
         <Input
           type="email"
@@ -56,9 +62,21 @@ function LoginForm() {
         </div>
       </FormRowVertical>
       <FormRowVertical>
-        <Button size="large" onClick={handleSubmit} disabled={isLoading}>
-          {!isLoading ? "Login" : <SpinnerMini />}
-        </Button>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+          {onCloseModal && (
+            <Button 
+              variation="secondary" 
+              type="button" 
+              onClick={onCloseModal}
+              disabled={isLoading}
+            >
+              Cancel
+            </Button>
+          )}
+          <Button size="large" onClick={handleSubmit} disabled={isLoading}>
+            {!isLoading ? "Login" : <SpinnerMini />}
+          </Button>
+        </div>
       </FormRowVertical>
     </Form>
   );

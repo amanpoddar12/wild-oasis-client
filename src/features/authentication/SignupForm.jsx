@@ -11,6 +11,7 @@ function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
   const { signup, isLoading } = useSignup();
+  
   function onSubmit({ fullName, email, password }) {
     signup(
       {
@@ -19,12 +20,20 @@ function SignupForm() {
         password,
       },
       {
+        onSuccess: () => {
+          reset();
+          // Close modal if it exists
+          if (typeof onCloseModal === 'function') {
+            setTimeout(() => onCloseModal(), 1500);
+          }
+        },
         onSettled: () => reset(),
       }
     );
   }
+  
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} type={onCloseModal ? "modal" : "regular"}>
       <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
           type="text"
@@ -86,7 +95,10 @@ function SignupForm() {
           variation="secondary"
           type="reset"
           disabled={isLoading}
-          onClick={reset}
+          onClick={() => {
+            reset();
+            onCloseModal?.();
+          }}
         >
           Cancel
         </Button>

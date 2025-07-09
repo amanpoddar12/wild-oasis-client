@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Bookings from "./pages/Bookings";
 import Booking from "./pages/Booking";
@@ -41,6 +42,9 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
+            {/* Public Home Route */}
+            <Route path="/" element={<Home />} />
+            
             {/* Admin Routes */}
             <Route
               element={
@@ -72,7 +76,6 @@ function App() {
                 </ClientRoute>
               }
             >
-              <Route index element={<Navigate replace to="/home" />} />
               <Route path="home" element={<ClientHome />} />
               <Route path="cabins" element={<ClientCabins />} />
               <Route path="book/:cabinId" element={<ClientBooking />} />
