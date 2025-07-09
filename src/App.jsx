@@ -12,10 +12,18 @@ import Checkin from "./pages/Checkin";
 import Account from "./pages/Account";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
+import ClientLayout from "./ui/ClientLayout";
+import ClientHome from "./pages/client/ClientHome";
+import ClientCabins from "./pages/client/ClientCabins";
+import ClientBooking from "./pages/client/ClientBooking";
+import ClientAccount from "./pages/client/ClientAccount";
+import ClientBookings from "./pages/client/ClientBookings";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import AdminRoute from "./ui/AdminRoute";
+import ClientRoute from "./ui/ClientRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,23 +41,45 @@ function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
+            {/* Admin Routes */}
             <Route
               element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
+                <AdminRoute>
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                </AdminRoute>
               }
             >
-              <Route index element={<Navigate replace to="dashboard" />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="bookings" element={<Bookings />} />
-              <Route path="bookings/:bookingId" element={<Booking />} />
-              <Route path="checkin/:bookingId" element={<Checkin />} />
-              <Route path="cabins" element={<Cabins />} />
-              <Route path="users" element={<Users />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="account" element={<Account />} />
+              <Route path="admin" element={<Navigate replace to="/admin/dashboard" />} />
+              <Route path="admin/dashboard" element={<Dashboard />} />
+              <Route path="admin/bookings" element={<Bookings />} />
+              <Route path="admin/bookings/:bookingId" element={<Booking />} />
+              <Route path="admin/checkin/:bookingId" element={<Checkin />} />
+              <Route path="admin/cabins" element={<Cabins />} />
+              <Route path="admin/users" element={<Users />} />
+              <Route path="admin/settings" element={<Settings />} />
+              <Route path="admin/account" element={<Account />} />
             </Route>
+
+            {/* Client Routes */}
+            <Route
+              element={
+                <ClientRoute>
+                  <ProtectedRoute>
+                    <ClientLayout />
+                  </ProtectedRoute>
+                </ClientRoute>
+              }
+            >
+              <Route index element={<Navigate replace to="/home" />} />
+              <Route path="home" element={<ClientHome />} />
+              <Route path="cabins" element={<ClientCabins />} />
+              <Route path="book/:cabinId" element={<ClientBooking />} />
+              <Route path="my-bookings" element={<ClientBookings />} />
+              <Route path="profile" element={<ClientAccount />} />
+            </Route>
+
             <Route path="login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>

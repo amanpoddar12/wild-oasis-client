@@ -15,7 +15,14 @@ export const useLogin = () => {
       // and we need ONLY data.user here, not full data, as Jonas suggested
       queryClient.setQueryData(["user"], data.user);
       toast.success("Login successful");
-      navigate("/dashboard", { replace: true });
+      
+      // Navigate based on user role
+      const userRole = data.user?.user_metadata?.role;
+      if (userRole === 'admin') {
+        navigate("/admin/dashboard", { replace: true });
+      } else {
+        navigate("/home", { replace: true });
+      }
     },
 
     onError: (error) => toast.error(`${error.message}: ${error.cause.message}`),

@@ -1,10 +1,19 @@
 import supabase, { supabaseUrl } from "./supabase.js";
 
+// Check if user is admin
+export const checkUserRole = async (email) => {
+  // You can customize this logic - for now, checking if email contains 'admin'
+  // In production, you'd want to store roles in a separate table
+  const adminEmails = ['admin@wildoasis.com', 'admin@hotel.com'];
+  return adminEmails.includes(email.toLowerCase()) || email.toLowerCase().includes('admin');
+};
+
 export const signup = async ({ email, password, fullName }) => {
+  const isAdmin = await checkUserRole(email);
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { fullName, avatar: "" } },
+    options: { data: { fullName, avatar: "", role: isAdmin ? 'admin' : 'guest' } },
   });
   if (error) throw new Error(error.message);
   return data;
@@ -18,6 +27,14 @@ export const login = async ({ email, password }) => {
 
   if (error) {
     throw new Error("Login error", { cause: error });
+  }
+
+  // Add role information if not present
+  if (data.user && !data.user.user_metadata.role) {
+    const isAdmin = await checkUserRole(data.user.email);
+    await supabase.auth.updateUser({
+      data: { role: isAdmin ? 'admin' : 'guest' }
+    });
   }
 
   return data;

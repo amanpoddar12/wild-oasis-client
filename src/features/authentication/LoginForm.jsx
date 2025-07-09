@@ -10,6 +10,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading } = useLogin();
+  
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
@@ -46,6 +47,13 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           disabled={isLoading}
         />
+      </FormRowVertical>
+      <FormRowVertical>
+        <div style={{ fontSize: '1.4rem', color: 'var(--color-grey-600)', textAlign: 'center', marginBottom: '1rem' }}>
+          <p>Demo Accounts:</p>
+          <p><strong>Admin:</strong> admin@wildoasis.com / password123</p>
+          <p><strong>Guest:</strong> guest@example.com / password123</p>
+        </div>
       </FormRowVertical>
       <FormRowVertical>
         <Button size="large" onClick={handleSubmit} disabled={isLoading}>
